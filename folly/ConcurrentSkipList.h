@@ -803,6 +803,10 @@ class ConcurrentSkipList<T, Comp, NodeAlloc, MAX_HEIGHT>::Skipper {
     return *this;
   }
 
+  bool goodPred() const {
+    return preds_[0] != nullptr;
+  }
+
   bool good() const {
     return succs_[0] != nullptr;
   }
@@ -816,6 +820,11 @@ class ConcurrentSkipList<T, Comp, NodeAlloc, MAX_HEIGHT>::Skipper {
     // might be some newly inserted node and also during the time period the
     // head height may have grown.
     return succs_[0] ? std::min(headHeight_, succs_[0]->height()) : 0;
+  }
+
+  const value_type& predData() const {
+    DCHECK(preds_[0] != nullptr);
+    return preds_[0]->data();
   }
 
   const value_type& data() const {
