@@ -260,9 +260,11 @@ void SSLContext::loadCertificateFromBufferPEM(folly::StringPiece cert) {
       return;
     }
 
+#if 0
     if (SSL_CTX_add1_chain_cert(ctx_, x509.get()) == 0) {
       throw std::runtime_error("SSL_CTX_add0_chain_cert: " + getErrors());
     }
+#endif
   }
 
   throw std::runtime_error(

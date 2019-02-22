@@ -105,15 +105,20 @@ static constexpr pretty_info pretty_parse(char const (&name)[S]) {
 
 template <typename T>
 struct pretty_name_zarray {
-  static constexpr auto raw = pretty_raw<T>();
-  static constexpr auto info = pretty_parse(raw.data);
-  static constexpr auto size = info.e - info.b;
+  //static constexpr auto raw = pretty_raw<T>();
+  //static constexpr auto info = pretty_parse(raw.data);
+  static constexpr auto info = pretty_parse("kuku");
+  static constexpr auto size = 1; //info.e - info.b;
   static constexpr pretty_carray<size + 1> zarray_() {
+#if 0
     pretty_carray<size + 1> data{};
     for (std::size_t i = 0; i < size; ++i) {
       data.data[i] = raw.data[info.b + i];
     }
     data.data[size] = 0;
+    return data;
+#endif
+    pretty_carray<size + 1> data{};
     return data;
   }
   static constexpr pretty_carray<size + 1> zarray = zarray_();
